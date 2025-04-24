@@ -1,0 +1,31 @@
+name: Run Telegram News Bot Daily
+
+on:
+  schedule:
+    - cron: '0 23 * * *'  # 매일 오전 8시에 실행 (UTC 기준)
+  workflow_dispatch:  # 수동으로 실행할 수도 있도록 설정
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code from GitHub repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'  # 원하는 Python 버전 설정
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r news-telegram-bot/requirements.txt
+
+      - name: Run the Telegram News Bot script
+        run: |
+          python news-telegram-bot/news_telegram.py
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
