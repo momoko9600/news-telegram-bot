@@ -1,9 +1,12 @@
+import os
 import requests
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
 
-# ✅ 텔레그램 봇 토큰과 본인의 Chat ID
-TELEGRAM_BOT_TOKEN = '8011785456:AAEYTGG5ueT-LpD1LMDgGa8Sn-zxWRoj5kw'
-TELEGRAM_CHAT_ID = '151163780'
+load_dotenv()
+
+TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 
 NAVER_URL = "https://news.naver.com/main/ranking/popularDay.naver"
 
